@@ -16,7 +16,7 @@ void proximo()
 
 void erro()
 {
-    printf("Erro no parser");
+    printf("Erro no analisador.");
     exit(1);
 }
 
