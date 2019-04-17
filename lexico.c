@@ -6,17 +6,23 @@
 char prox;
 int idcode = 0;
 int numcode = 0;
+int current_line = 1;
 
 void proximo()
 {
     prox = _IO_getc(stdin);
     if (feof(stdin))
         exit(0);
+
+    if (prox == 10)
+    {
+        current_line += 1;
+    }
 }
 
 void erro()
 {
-    printf("Erro no analisador.");
+    printf("Erro no analisador na linha %d", current_line);
     exit(1);
 }
 
@@ -27,7 +33,7 @@ int is_special()
 
 int is_keyword(char atomo[])
 {
-    return !strcmp(atomo, "program") || !strcmp(atomo, "var") || !strcmp(atomo, "procedure") || !strcmp(atomo, "function") || !strcmp(atomo, "begin") || !strcmp(atomo, "end") || !strcmp(atomo, "if") || !strcmp(atomo, "then") || !strcmp(atomo, "else") || !strcmp(atomo, "while") || !strcmp(atomo, "do") || !strcmp(atomo, "or") || !strcmp(atomo, "and") || !strcmp(atomo, "div") || !strcmp(atomo, "not");
+    return !strcmp(atomo, "integer") || !strcmp(atomo, "program") || !strcmp(atomo, "var") || !strcmp(atomo, "procedure") || !strcmp(atomo, "function") || !strcmp(atomo, "begin") || !strcmp(atomo, "end") || !strcmp(atomo, "if") || !strcmp(atomo, "then") || !strcmp(atomo, "else") || !strcmp(atomo, "while") || !strcmp(atomo, "do") || !strcmp(atomo, "or") || !strcmp(atomo, "and") || !strcmp(atomo, "div") || !strcmp(atomo, "not");
 }
 
 int is_letter()
@@ -103,6 +109,8 @@ char *codigo(char s[])
         return "c_div";
     if (!strcmp(s, "not"))
         return "c_not";
+    if (!strcmp(s, "integer"))
+        return "c_int";
     return NULL;
 }
 
@@ -194,4 +202,5 @@ int main()
         str[0] = 0;
         analisador(str);
     }
+
 }
